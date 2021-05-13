@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+
+    <!-- the wrapper and content divs set margins and positioning -->
+
+<!--
+
+Nick Montfort
+ Original Python program:
+ 8 January 2009, Taroko Gorge National Park, Taiwan and Eva Air Flight 28
+
+Copyright (c) 2009 Nick Montfort <nickm@nickm.com>
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+-->
+
+<script language="JavaScript" type="text/javascript">
+var t=0;
+var n=0;
+var paths=0;
+var above='wind, eagle, dry heat, sun and star, thunder, lightning, haze'.split(',');
+var below='dune, sand, rattlesnake, lizard, frayed tent, scorpion, yucca, prickly pear, cacti, boulder'.split(',');
+var trans='strike, beat, guage, run, climb, subsume, dot, long, cover, surround, graces'.split(',');
+var imper='meander, prick, burn, pierce, sting, encounter, experience, get lost in';
+imper=imper.split(',');
+var intrans='imagine, desire, bask, want, thirst, sojurn, burst, endure, hunger, whisper'.split(',');
+var s='s,'.split(',');
+var texture='spiked,scaled,shimmering, undulating'.split(',');
+function rand_range(max) {
+ return Math.floor(Math.random()*(max+1));
+}
+function choose(array) {
+ return array[rand_range(array.length-1)];
+}
+function path() {
+ var p=rand_range(1);
+ var words=choose(above);
+ if ((words=='forest')&&(rand_range(3)==1)) {
+  words='monkeys '+choose(trans);
+ } else {
+  words+=s[p]+' '+choose(trans)+s[(p+1)%2];
+ }
+ words+=' the '+choose(below)+choose(s)+'.';
+ return words;
+}
+function site() {
+ var words='';
+ if (rand_range(2)==1) {
+  words+=choose(above);
+ } else {
+  words+=choose(below);
+ }
+ words+='s '+choose(intrans)+'.';
+ return words;
+}
+function cave() {
+ var adjs=('overarching,'+choose(texture)+',serene, wanting, majestic, sinew, position, ephemeral, longing, desert').split(',');
+ var target=1+rand_range(3);
+ while (adjs.length>target) {
+  adjs.splice(rand_range(adjs.length),1);
+  }
+ var words='\u00a0\u00a0'+choose(imper)+' the '+adjs.join(' ')+' \u2014';
+ return words;
+}
+function do_line() {
+ var main=document.getElementById('main');
+ if (t<=25) {
+  t+=1;
+ } else {
+  main.removeChild(document.getElementById('main').firstChild);
+ }
+ if (n===0) {
+  text=' ';
+ } else if (n==1) {
+  paths=2+rand_range(2);
+  text=path();
+ } else if (n<paths) {
+  text=site();
+ } else if (n==paths) {
+  text=path();
+ } else if (n==paths+1) {
+  text=' ';
+ } else if (n==paths+2) {
+  text=cave();
+ } else {
+  text=' ';
+  n=0;
+ }
+ n+=1;
+ text=text.substring(0,1).toUpperCase()+text.substring(1,text.length);
+ last=document.createElement('div');
+ last.appendChild(document.createTextNode(text));
+ main.appendChild(last);
+}
+function poem() {
+ setInterval(do_line, 1200);
+}
+</script>
+  <title>Taroko Gorge</title>
+</head>
+<body onload="poem()">
+<div style="float:right; margin-top:12px; color:#0b3; height:60pt">
+<div>Joshua Tree</div>
+<div>Jenny Hedley</div>
+</div>
+<div id="main"></div>
+</body>
+  </html>
