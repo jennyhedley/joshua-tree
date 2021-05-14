@@ -37,12 +37,12 @@ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 var t=0;
 var n=0;
 var paths=0;
-var above='wind, eagle, dry heat, sun and star, thunder, lightning, haze'.split(',');
-var below='dune, sand, rattlesnake, lizard, frayed tent, scorpion, yucca, prickly pear, cacti, boulder'.split(',');
-var trans='strike, beat, guage, run, climb, subsume, dot, long, cover, surround, graces'.split(',');
-var imper='meander, prick, burn, pierce, sting, encounter, experience, get lost in';
+var above='wind, eagle, dry heat, sun and star, thunder, lightning, moonlight'.split(',');
+var below='dune, sand, rattlesnake, lizard, frayed tent, scorpion, yucca, prickly pear, cacti, boulder, tumbleweed'.split(',');
+var trans='strike, whip, guage, run, climb, subsume, burrow, enfold, surround, grace'.split(',');
+var imper='meander, prick, burn, pierce, encounter, experience, get lost in';
 imper=imper.split(',');
-var intrans='imagine, desire, bask, want, thirst, sojurn, burst, endure, hunger, whisper'.split(',');
+var intrans='imagine, sting, strike, desire, bask, sojurn, burst, endure, hunger, whisper'.split(',');
 var s='s,'.split(',');
 var texture='spiked,scaled,shimmering, undulating'.split(',');
 function rand_range(max) {
@@ -73,7 +73,7 @@ function site() {
  return words;
 }
 function cave() {
- var adjs=('overarching,'+choose(texture)+',serene, wanting, majestic, sinew, position, ephemeral, longing, desert').split(',');
+ var adjs=('overarching,'+choose(texture)+', thirsty, horizon, majestic, heartfelt, ephemeral, longing, desert').split(',');
  var target=1+rand_range(3);
  while (adjs.length>target) {
   adjs.splice(rand_range(adjs.length),1);
